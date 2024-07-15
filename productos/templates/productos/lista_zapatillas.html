@@ -8,15 +8,28 @@
     <style>
         body {
             background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             padding: 20px;
             margin: 0;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+        }
+
+        .navbar {
+            margin-bottom: 20px;
+            background-color: #343a40;
+        }
+
+        .navbar a {
+            color: #000000 !important;
+        }
+
+        .navbar a:hover {
+            color: #00bfff !important;
         }
 
         h1 {
@@ -65,7 +78,7 @@
             margin: 0 auto; 
             transform: translateX(-8.9%); 
         }
-        
+
         .carousel-item img {
             width: 100%;
             height: auto; 
@@ -78,6 +91,12 @@
 
         .button-container form {
             display: inline-block;
+        }
+        .navbar-brand img {
+            height: 80px; 
+            width: 80px; 
+            border-radius: 50%; 
+            object-fit: cover; 
         }
 
         .button-container a, .button-container button {
@@ -97,10 +116,6 @@
             background-color: #1976D2;
         }
 
-        .navbar {
-            margin-bottom: 20px;
-        }
-
         .instagram-section {
             display: flex;
             flex-direction: column;
@@ -109,17 +124,62 @@
             height: 200px;
             text-align: center;
             margin-top: 20px;
+            background: linear-gradient(135deg, #1e1e1e, #3e3e3e); /* Gradiente */
+            color: #fff; /* Texto blanco */
+            padding: 20px;
+            border-radius: 10px;
         }
 
         .instagram-link {
             margin-top: 10px;
+            color: #1e90ff; /* Color del enlace */
+            text-decoration: none;
+        }
+
+        .instagram-link:hover {
+            color: #00bfff;
+        }
+
+        .footer {
+            background-color: #343a40;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 30px;
+            border-top: 1px solid #ccc;
+        }
+
+        .footer a {
+            color: #1e90ff;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: #00bfff;
+        }
+
+        .footer .social-icons {
+            margin-top: 10px;
+        }
+
+        .footer .social-icons a {
+            margin: 0 10px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 20px;
+        }
+
+        .footer .social-icons a:hover {
+            color: #00bfff;
         }
     </style>
 </head>
 <body>
     {% load static %}
     <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="#">Zapatillas San Antonio</a>
+        <a class="navbar-brand" href="#">
+            <img src="{% static 'img/FondoPag.png' %}" alt="Logo">
+        </a>
         <div>
             <a class="nav-link d-inline" href="{% url 'registro' %}">Inicio</a>
             <a class="nav-link d-inline" href="{% url 'productos:lista_zapatillas' %}">Productos</a>
@@ -175,14 +235,25 @@
             {% endfor %}
         </ul>
     </div>
-    
+
     <div class="instagram-section">
         <h3>Síguenos en Nuestro Instagram</h3>
         <a href="https://www.instagram.com/zapatillas_san_antonioo/" class="instagram-link" target="_blank">Instagram</a>
     </div>
 
+    <div class="footer">
+        <p>&copy; 2024 Zapatillas San Antonio. Todos los derechos reservados.</p>
+        <div class="social-icons">
+            <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+        </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </body>
 </html>

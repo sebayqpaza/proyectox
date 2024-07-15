@@ -35,23 +35,22 @@ def finalizar_compra(request):
         direccion = request.POST.get('address')
         telefono = request.POST.get('phone')
         metodo_pago = request.POST.get('payment_method')
-
-        # mensaje = f'Nombre: {nombre}\nCorreo Electrónico: {correo_electronico}\nDirección: {direccion}\nTeléfono: {telefono}\nMétodo de Pago: {metodo_pago}'
-        # send_mail(
-        #     'Confirmación de Compra',
-        #     mensaje,
-        #     settings.DEFAULT_FROM_EMAIL,
-        #     [correo_electronico],
-        #     fail_silently=False,
-        # )
-
+        
         carrito = Carrito.objects.get(usuario=request.user)
+        carrito_items = carrito.zapatillas.all()
+        total = sum(item.precio for item in carrito_items)
+        
         carrito.zapatillas.clear()
 
-        # Redirecciona a la página de compra exitosa
-        return redirect('carrito:compra_exitosa')
-
+        context = {
+            'nombre': nombre,
+            'correo_electronico': correo_electronico,
+            'direccion': direccion,
+            'telefono': telefono,
+            'metodo_pago': metodo_pago,
+            'carrito_items': carrito_items,
+            'total': total
+        }
+        
+        return render(request, 'carrito/boleta.html', context)
     return redirect('carrito:ver_carrito')
-
-def compra_exitosa(request):
-    return render(request, 'carrito/compra_exitosa.html')
