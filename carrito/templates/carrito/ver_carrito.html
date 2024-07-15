@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Carrito</title>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        h1 {
+            text-align: center;
+            color: #2196F3; /* Color del botón "Seguir comprando" */
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #ccc;
+        }
+        img {
+            max-width: 100px;
+            max-height: 100px;
+            margin-right: 20px;
+        }
+        .product-info {
+            flex-grow: 1;
+        }
+        .product-info h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+        .product-info p {
+            margin: 5px 0;
+        }
+        .product-actions {
+            text-align: right;
+        }
+        .product-actions a {
+            color: #fff;
+            background-color: #f00;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .product-actions a:hover {
+            background-color: #d00;
+        }
+        .continue-shopping {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .continue-shopping a {
+            text-decoration: none;
+            color: #2196F3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mi Carrito</h1>
+        <ul>
+            {% for zapatilla in carrito.zapatillas.all %}
+                <li>
+                    <img src="{{ zapatilla.imagen.url }}" alt="{{ zapatilla.nombre }}">
+                    <div class="product-info">
+                        <h3>{{ zapatilla.nombre }}</h3>
+                        <p>${{ zapatilla.precio }}</p>
+                    </div>
+                    <div class="product-actions">
+                        <a href="{% url 'carrito:eliminar_del_carrito' zapatilla.id %}">Eliminar</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="continue-shopping">
+            <a href="{% url 'productos:lista_zapatillas' %}">Seguir comprando</a>
+        </div>
+    </div>
+</body>
+</html>

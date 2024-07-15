@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Zapatillas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        li {
+            text-align: center;
+            margin: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            width: 280px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            transition: transform 0.2s, box-shadow 0.3s;
+        }
+
+        li:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
+            margin-bottom: 10px;
+        }
+
+        .carousel {
+        width: 125%; 
+        height: 600px; 
+        margin: 0 auto; 
+        transform: translateX(-8.9%); 
+        }
+        .carousel-item img {
+        width: 100%;
+        height: auto; 
+        max-height: 520px; 
+        }
+
+        .button-container {
+            margin-top: 10px;
+        }
+
+        .button-container form {
+            display: inline-block;
+        }
+
+        .button-container a, .button-container button {
+            display: inline-block;
+            padding: 10px 20px;
+            text-decoration: none;
+            background-color: #2196F3;
+            color: #fff;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .button-container a:hover, .button-container button:hover {
+            background-color: #1976D2;
+        }
+
+        .navbar {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    {% load static %}
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="#">Zapatillas San Antonio</a>
+        <div>
+            <a class="nav-link d-inline" href="{% url 'registro' %}">Inicio</a>
+            <a class="nav-link d-inline" href="{% url 'productos:lista_zapatillas' %}">Productos</a>
+            <a class="nav-link d-inline" href="{% url 'carrito:ver_carrito' %}">Carrito</a>
+            <a class="nav-link d-inline" href="#">Contacto</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="{% static 'img/zapa1.jpg' %}" alt="First slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="{% static 'img/zapa2.png' %}" alt="Second slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="{% static 'img/zapa3.png' %}" alt="Third slide">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+
+        <h1>Lista de Zapatillas</h1>
+        <ul>
+            {% for zapatilla in zapatillas %}
+                <li>
+                    <img src="{{ zapatilla.imagen.url }}" alt="{{ zapatilla.nombre }}">
+                    <div>
+                        <h3>{{ zapatilla.nombre }}</h3>
+                        <div class="button-container">
+                            <a href="{% url 'productos:detalle_zapatilla' zapatilla.id %}">Ver Detalles</a>
+                            <form method="post" action="{% url 'carrito:agregar_al_carrito' zapatilla.id %}">
+                                {% csrf_token %}
+                                <button type="submit">Agregar al Carrito</button>
+                            </form>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

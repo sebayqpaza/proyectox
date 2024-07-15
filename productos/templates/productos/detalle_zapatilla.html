@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle Zapatilla</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #555;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .button-container a {
+            text-decoration: none;
+            background-color: #2196F3;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 0 10px;
+            transition: background-color 0.3s;
+        }
+
+        .button-container a:hover {
+            background-color: #1976D2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ zapatilla.nombre }}</h1>
+        <img src="{{ zapatilla.imagen.url }}" alt="{{ zapatilla.nombre }}">
+        <p><strong>Descripción:</strong> {{ zapatilla.descripcion }}</p>
+        <p><strong>Precio:</strong> ${{ zapatilla.precio }}</p>
+        <p><strong>Stock:</strong> {{ zapatilla.stock }}</p>
+        <div class="button-container">
+            <a href="{% url 'carrito:agregar_al_carrito' zapatilla.id %}">Agregar al Carrito</a>
+            <a href="{% url 'productos:lista_zapatillas' %}">Volver a lista de productos</a>
+        </div>
+    </div>
+</body>
+</html>

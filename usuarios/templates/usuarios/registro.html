@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro/Iniciar Sesión</title>
+    {% load static %}
+    <style>
+        body {
+            background: url("{% static 'img/tienda5.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+        h2 {
+            color: #4e54c8;
+            margin-bottom: 15px;
+        }
+        .form-group {
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 3px;
+            color: #333;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        .button {
+            background-color: #4e54c8;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #8f94fb;
+        }
+        .button:disabled {
+            background-color: #ccc;
+        }
+        hr {
+            margin: 15px 0;
+            border: none;
+            border-top: 1px solid #ccc;
+        }
+        .help-text {
+            font-size: 10px;
+            color: #777;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+        .errorlist {
+            color: red;
+            font-size: 12px;
+            list-style-type: none;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Iniciar Sesión</h2>
+        <form method="post" action="{% url 'usuarios:login' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="button">Iniciar Sesión</button>
+        </form>
+        <hr>
+        <h2>Registrarse</h2>
+        <form method="post" action="{% url 'usuarios:registro' %}">
+            {% csrf_token %}
+            {{ form_registro.non_field_errors }}
+            <div class="form-group">
+                {{ form_registro.username.label_tag }}<br>
+                {{ form_registro.username }}<br>
+                {{ form_registro.username.errors }}
+                <small class="help-text">{{ form_registro.username.help_text|safe }}</small>
+            </div>
+            <div class="form-group">
+                {{ form_registro.email.label_tag }}<br>
+                {{ form_registro.email }}<br>
+                {{ form_registro.email.errors }}
+            </div>
+            <div class="form-group">
+                {{ form_registro.password1.label_tag }}<br>
+                {{ form_registro.password1 }}<br>
+                {{ form_registro.password1.errors }}
+                <small class="help-text">
+                    Tu contraseña no puede ser muy similar a tu información personal.<br>
+                    Tu contraseña debe contener al menos 8 caracteres.<br>
+                    Tu contraseña no puede ser una contraseña comúnmente utilizada.<br>
+                    Tu contraseña no puede ser completamente numérica.
+                </small>
+            </div>
+            <div class="form-group">
+                {{ form_registro.password2.label_tag }}<br>
+                {{ form_registro.password2 }}<br>
+                {{ form_registro.password2.errors }}
+            </div>
+            <button type="submit" class="button">Registrarse</button>
+        </form>
+    </div>
+</body>
+</html>
