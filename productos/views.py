@@ -8,3 +8,7 @@ def lista_zapatillas(request):
 def detalle_zapatilla(request, id):
     zapatilla = get_object_or_404(Zapatilla, id=id)
     return render(request, 'productos/detalle_zapatilla.html', {'zapatilla': zapatilla})
+
+def buscar(request):
+    query = request.GET.get('query')
+    return render(request, 'productos/lista_zapatillas.html', {'query': query})
